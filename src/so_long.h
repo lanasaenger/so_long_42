@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/01/28 18:35:34 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/01/30 18:39:51 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <string.h>
-# include "../include/MLX42/MLX42.h"
+#include "MLX42/MLX42.h"
 # include "../libraries/libft/libft.h"
 # define TILE_SIZE 64
 
@@ -53,4 +53,5 @@ void 	create_background_with_texture(t_game *game, const char *file_path);
 t_map	 *load_map(const char *map_file);
 void 	load_textures(t_game *game);
 void	load_texture(mlx_t *mlx, mlx_image_t **image, const char *path);
+int		check_file_exists(const char *path);
 # endif

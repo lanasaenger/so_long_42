@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+         #
+#    By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 20:06:17 by lamachad          #+#    #+#              #
-#    Updated: 2025/01/20 18:32:46 by lamachad         ###   ########.fr        #
+#    Updated: 2025/01/30 18:43:49 by lavinia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS	:= ./src/main.c \
 			./src/move.c \
 			./src/texture.c \
 			./src/count_line.c \
+			
 
 OBJS	:= ${SRCS:.c=.o}
 

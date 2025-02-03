@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/01/28 17:23:50 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/01/30 19:13:57 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int init_game(t_game *game, const char *map_path)
         write(2, "Erro: Falha ao inicializar MLX.\n", 33);
         return false;
     }
-
+    
     // Carrega a textura de fundo antes de tudo
-    create_background_with_texture(game, "/nfs/homes/lamachad/so_long/assets/bottom.png");
+    create_background_with_texture(game, "assets/bottom.png");
 
     // Carrega o mapa
     game->map = load_map(map_path);
@@ -104,13 +104,15 @@ int init_game(t_game *game, const char *map_path)
 //     return (1);
 // }
 
-int main(void)
+int main(int argc, char **argv)
 {
     t_game game;
     game.x = 0;
     game.y = 0;
 
-    if (!init_game(&game, "./maps/mapa.ber"))
+    if (argc == 0)
+        return (0);
+    if (!init_game(&game, argv[1]))
     {
         write(2, "Erro: Falha na inicialização do jogo.\n", 38);
         return EXIT_FAILURE;
