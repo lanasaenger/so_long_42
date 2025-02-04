@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/01/30 19:13:57 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/04 20:10:04 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int init_game(t_game *game, const char *map_path)
     }
     
     // Carrega a textura de fundo antes de tudo
-    create_background_with_texture(game, "assets/bottom.png");
+    // create_background_with_texture(game, "assets/bottom.png");
 
     // Carrega o mapa
     game->map = load_map(map_path);
@@ -81,28 +81,12 @@ int init_game(t_game *game, const char *map_path)
         write(2, "Erro: Falha ao carregar mapa.\n", 31);
         return false;
     }
-
+	
     // Carrega as texturas
     load_textures(game);
 
     return true;
 }
-// int init_game(t_game *game, const char *map_file)
-// {
-//     game->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
-//     if (!game->mlx)
-//         return (write(2, "Erro ao iniciar MLX\n", 20), 0);
-
-//     game->map = load_map(map_file);
-//     if (!game->map)
-//         return (write(2, "Erro ao carregar o mapa\n", 24), 0);
-
-//     load_textures(game);
-//     game->x = TILE_SIZE;
-//     game->y = TILE_SIZE;
-
-//     return (1);
-// }
 
 int main(int argc, char **argv)
 {

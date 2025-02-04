@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:14:13 by lamachad          #+#    #+#             */
-/*   Updated: 2025/01/28 18:35:25 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/04 20:13:42 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int count_lines(int fd)
         count++;
         free(line);
     }
-
     lseek(fd, 0, SEEK_SET); // Retorna o ponteiro do arquivo para o início
     return count;
 }
@@ -32,7 +31,6 @@ char **fill_map(int fd, int lines, char **grid)
 {
     if (lines == 0)
     {
-        grid[0] = NULL;
         return grid;
     }
 
@@ -51,18 +49,31 @@ t_map	*load_map(const char *map_file)
 
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
+	{
+		printf("ERRO NO FD");
 		return (perror("Erro ao abrir o arquivo do mapa"), NULL);
+	}
 	lines = count_lines(fd);
 	if (lines <= 0)
+	{
+		printf("Erro nas linhas");
 		return (close(fd), NULL);
+	}
 	map = malloc(sizeof(t_map));
 	if (!map)
+	{
+		printf("Erro no malloc");
 		return (close(fd), NULL);
+	}
 	map->grid = malloc(sizeof(char *) * (lines + 1));
 	if (!map->grid)
+	{
+		printf("Erro no grid");
 		return (free(map), close(fd), NULL);
+	}
 	if (!fill_map(fd, lines, map->grid))
 	{
+		printf("Erro no fill map");
 		while (lines--)
 			free(map->grid[lines]);
 		return (free(map->grid), free(map), close(fd), NULL);
@@ -70,5 +81,6 @@ t_map	*load_map(const char *map_file)
 	close(fd);
 	map->height = lines;
 	map->width = (map->grid[0] ? ft_strlen(map->grid[0]) - 1 : 0);
+							
 	return (map);
 }
