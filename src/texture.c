@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 20:08:37 by lamachad          #+#    #+#             */
-/*   Updated: 2025/01/30 19:06:19 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:44:54 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,35 +56,6 @@ void load_textures(t_game *game)
     load_texture(game->mlx, &game->textures.exit, "assets/portal.png");
     load_texture(game->mlx, &game->textures.player, "assets/character.png");
 }
-
-void create_background_with_texture(t_game *game, const char *file_path)
-{
-    if (!game || !game->mlx)
-    {
-        ft_putstr_fd("Erro: MLX não inicializado corretamente.\n", 2);
-        exit(EXIT_FAILURE);
-    }
-    mlx_texture_t *texture = mlx_load_png(file_path);
-    if (!texture)
-    {
-        ft_putstr_fd("Erro: Não foi possível carregar a textura de fundo.\n", 2);
-        exit(EXIT_FAILURE);
-    }
-    mlx_image_t *background = mlx_texture_to_image(game->mlx, texture);
-    mlx_delete_texture(texture); // Já convertemos, podemos deletar a textura
-    if (!background)
-    {
-        ft_putstr_fd("Erro: Não foi possível converter a textura em imagem.\n", 2);
-        exit(EXIT_FAILURE);
-    }
-    // Adiciona a imagem de fundo na janela
-    if (mlx_image_to_window(game->mlx, background, 0, 0) < 0)
-    {
-        ft_putstr_fd("Erro: Não foi possível exibir a imagem na janela.\n", 2);
-        exit(EXIT_FAILURE);
-    }
-}
-
 
 void key_hook(mlx_key_data_t keydata, void *param)
 {
