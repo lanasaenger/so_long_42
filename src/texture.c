@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 20:08:37 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/10 12:41:19 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/11 17:15:21 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,5 @@ void	load_textures(t_game *game)
 	load_texture(game->mlx, &game->textures.collectible, "assets/collectable.png");
 	load_texture(game->mlx, &game->textures.exit, "assets/portal.png");
 	load_texture(game->mlx, &game->textures.player, "assets/character.png");
-}
-
-void	key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_game *game;
-
-	game = param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
-		mlx_terminate(game->mlx);
-		exit(EXIT_SUCCESS);
-	}
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		game->y -= 10;
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		game->y += 10;
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		game->x -= 10;
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		game->x += 10;
 }
 

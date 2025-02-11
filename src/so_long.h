@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/10 12:12:36 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/10 17:21:08 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,23 @@ typedef struct	s_map
 	int		height;
 }t_map;
 
-typedef struct	s_game
+typedef struct s_game
 {
-	mlx_t		*mlx;
-	mlx_image_t	*player_img;
-	int			x; // Posição do jogador
-	int			y;
-	t_map		*map; // Estrutura que representa o mapa
-	struct	
-	{
-		mlx_image_t	*wall;
-		mlx_image_t	*floor;
-		mlx_image_t	*collectible;
-		mlx_image_t	*exit;
-		mlx_image_t	*player;
-	} textures;
-}	t_game;
+    mlx_t       *mlx;
+    mlx_image_t *player_img;
+    int         player_x; // Posição X do jogador no mapa
+    int         player_y; // Posição Y do jogador no mapa
+    t_map       *map; // Estrutura que representa o mapa
+    struct  
+    {
+        mlx_image_t *wall;
+        mlx_image_t *floor;
+        mlx_image_t *collectible;
+        mlx_image_t *exit;
+        mlx_image_t *player;
+    } textures;
+} t_game;
+
 
 void	update(void	*param);
 void	move_image(t_game *game, int dx, int dy);
@@ -58,4 +59,6 @@ void	load_textures(t_game *game);
 void	load_texture(mlx_t *mlx, mlx_image_t **image, const char *path);
 int		check_file_exists(const char *path);
 int		can_move(char **map_grid, int new_x, int new_y);
+void    move_player(char **map_grid, int *player_x, int *player_y, char direction, int map_width, int map_height);
+void    identify_map_elements(t_game *game);
 # endif

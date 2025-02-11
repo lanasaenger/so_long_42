@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:34:17 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/10 12:34:04 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/11 17:05:11 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,3 @@ void	update(void *param)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		player_instance->x += MOVE_SPEED;
 }
-
-void	handle_esc(mlx_key_data_t keydata, void *param)
-{
-	t_game*	game;
-
-	game = param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
-		mlx_terminate(game->mlx);
-		exit(EXIT_SUCCESS);
-	}
-}
-

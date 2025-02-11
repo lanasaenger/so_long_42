@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/10 12:25:59 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/11 17:17:19 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,16 @@ void render_map(t_game *game)
 				mlx_image_to_window(game->mlx, game->textures.collectible, x * TILE_SIZE, y * TILE_SIZE);
 			else if (game->map->grid[y][x] == 'E')
 				mlx_image_to_window(game->mlx, game->textures.exit, x * TILE_SIZE, y * TILE_SIZE);
+			else if (game->map->grid[y][x] == 'P')
+			{
+				game->player_x = x* TILE_SIZE;
+				game->player_y = y* TILE_SIZE;
+			}
 			x++;
 		}
 		y++;
 	}
-	if (mlx_image_to_window(game->mlx, game->textures.player, game->x, game->y) < 0)
+	if (mlx_image_to_window(game->mlx, game->textures.player, game->player_x, game->player_y) < 0)
 	{
 		write(2, "Erro ao adicionar jogador à janela.\n", 37);
 		exit(EXIT_FAILURE);
@@ -65,7 +70,7 @@ void	cleanup_game(t_game *game)
 
 int	init_game(t_game *game, const char *map_path)
 {
-	game->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
+	game->mlx = mlx_init(WIDTH, HEIGHT, "totoro", true);
 	if (!game->mlx)
 	{
 		write(2, "Erro: Falha ao inicializar MLX.\n", 33);
@@ -80,25 +85,51 @@ int	init_game(t_game *game, const char *map_path)
 	load_textures(game);
 	return (true);
 }
+#include "so_long.h"
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	t_game 	game;
-	game.x = 0;
-	game.y = 0;
+    t_game game;
 
-	if (argc == 0)
-		return (0);
-	if (!init_game(&game, argv[1]))
-	{
-		write(2, "Erro: Falha na inicialização do jogo.\n", 38);
-		return (EXIT_FAILURE);
-	}
-	render_map(&game);
-	mlx_key_hook(game.mlx, handle_esc, &game);
-	mlx_loop_hook(game.mlx, update, &game);
-	mlx_loop(game.mlx);
-	cleanup_game(&game);
-	return (EXIT_SUCCESS);
+    if (argc < 2)
+    {
+        write(2, "Erro: Nenhum arquivo de mapa especificado.\n", 44);
+        return (EXIT_FAILURE);
+    }
+
+    if (!init_game(&game, argv[1]))
+    {
+        write(2, "Erro: Falha na inicialização do jogo.\n", 38);
+        return (EXIT_FAILURE);
+    }
+    render_map(&game); // Renderiza o mapa corretamente
+    // Captura eventos de teclado para movimentação
+    mlx_key_hook(game.mlx, key_hook, &game);
+    // Define um loop principal do MLX
+    mlx_loop_hook(game.mlx, update, &game);
+    mlx_loop(game.mlx);
+    cleanup_game(&game);
+    return (EXIT_SUCCESS);
 }
+
+// int	main(int argc, char **argv)
+// {
+// 	t_game 	game;
+// 	game.x = 0;
+// 	game.y = 0;
+
+// 	if (argc == 0)
+// 		return (0);
+// 	if (!init_game(&game, argv[1]))
+// 	{
+// 		write(2, "Erro: Falha na inicialização do jogo.\n", 38);
+// 		return (EXIT_FAILURE);
+// 	}
+// 	render_map(&game);
+// 	mlx_key_hook(game.mlx, handle_esc, &game);
+// 	mlx_loop_hook(game.mlx, update, &game);
+// 	mlx_loop(game.mlx);
+// 	cleanup_game(&game);
+// 	return (EXIT_SUCCESS);
+// }
 
