@@ -6,42 +6,50 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:14:13 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/11 17:20:01 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:14:56 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int count_lines(int fd)
+int count_lines(const char *map_file)
 {
     char 	*line;
     int 		count;
+	int			fd;
 
 	count = 0;
-	line = 0;
-	while ((line = get_next_line(fd)))
+	fd = open(map_file, O_RDONLY);
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		count++;
 		free(line);
+		count++;
+		line = get_next_line(fd);
 	}
-	lseek(fd, 0, SEEK_SET); // Retorna o ponteiro do arquivo para o início
+	close(fd);
+	free(line);
 	return (count);
 }
 
+
 // Função para preencher o mapa linha por linha usando get_next_line
-char	**fill_map(int fd, int lines, char **grid)
+int fill_map(int fd, int lines, char **grid)
 {
-	if (lines == 0)
-	{
-		return (grid);
-	}
-	grid[lines - 1] = get_next_line(fd);
-	if (!grid[lines - 1])
-	{
-		return (NULL);
-	}
-	return (fill_map(fd, lines - 1, grid));
+    int i;
+
+    i = 0;
+    while (i < lines)
+    {
+        grid[i] = get_next_line(fd);
+        if (!grid[i])
+            return (0);
+        i++;
+    }
+    grid[i] = NULL;
+    return (1);
 }
+
 
 t_map	*load_map(const char *map_file)
 {
@@ -54,7 +62,7 @@ t_map	*load_map(const char *map_file)
 	{
 		return (perror("Erro ao abrir o arquivo do mapa"), NULL);
 	}
-	lines = count_lines(fd);
+	lines = count_lines(map_file);
 	if (lines <= 0)
 	{
 		return (close(fd), NULL);

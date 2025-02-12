@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/10 17:21:08 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:14:08 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ typedef struct s_game
 
 void	update(void	*param);
 void	move_image(t_game *game, int dx, int dy);
-void	handle_esc(mlx_key_data_t keydata, void	*param);
 void	key_hook(mlx_key_data_t keydata, void *param);
 void	render_map(t_game *game);
+int     count_lines(const char *map_file);
 void	cleanup_game(t_game *game);
 int		init_game(t_game *game, const char *map_file);
 void	create_background_with_texture(t_game *game, const char *file_path);
