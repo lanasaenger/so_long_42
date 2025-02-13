@@ -6,72 +6,72 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:12:30 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/11 17:05:23 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:34:43 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// // Verifica se a nova posição contém uma parede ('1')
-// int	can_move(char **map_grid, int new_x, int new_y)
-// {
-// 	if (map_grid[new_y][new_x] == '1')
-// 		return (0);
-// 	return (1);
-// }
-
-// void move_player(char **map_grid, int *player_x, int *player_y, char direction)
-// {
-//     int new_x = *player_x;
-//     int new_y = *player_y;
-
-//     // Atualiza coordenadas com base na direção
-//     if (direction == 'W')
-//         new_y--; // Move para cima
-//     else if (direction == 'A')
-//         new_x--; // Move para a esquerda
-//     else if (direction == 'S')
-//         new_y++; // Move para baixo
-//     else if (direction == 'D')
-//         new_x++; // Move para a direita
-
-//     // Verifica se a nova posição contém uma parede ('1')
-//     if (map_grid[new_y][new_x] != '1')
-//     {
-//         // Atualiza a posição do jogador se for um local válido
-//         *player_x = new_x;
-//         *player_y = new_y;
-//     }
-// }
-
-void	move_player(char **map_grid, int *player_x, int *player_y,
-	char direction, int map_width, int map_height)
+void update(void *param)
 {
-	int	new_x;
-	int	new_y;
+    t_game *game = (t_game *)param;
+    if (!game || !game->mlx || !game->textures.player)
+        return ;
+    handle_player_input(game);
+}
 
-	new_x = *player_x;
-	new_y = *player_y;
-	if (direction == 'W')
+void handle_player_input(t_game *game)
+{
+    int new_x = game->player_x;
+    int new_y = game->player_y;
+
+    if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+        new_y--;
+    if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+        new_y++;
+    if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+        new_x--;
+    if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+        new_x++;
+
+    if (new_x >= 0 && new_x < game->map->width && new_y >= 0 && new_y < game->map->height)
+        update_player_position(game, new_x, new_y);
+}
+
+void update_player_position(t_game *game, int new_x, int new_y)
+{
+    if (game->textures.player->count == 0)
+        return ;
+    if (game->map->grid[new_y][new_x] != '1')
+    {
+        game->player_x = new_x;
+        game->player_y = new_y;
+        game->textures.player->instances[0].x = new_x * TILE_SIZE;
+        game->textures.player->instances[0].y = new_y * TILE_SIZE;
+    }
+}
+
+void	move_player(t_game *game, char dir)
+{
+	int	new_x = game->player_x / TILE_SIZE;  // Coordenada no grid
+	int	new_y = game->player_y / TILE_SIZE;
+
+	if (dir == 'W')
 		new_y--;
-	else if (direction == 'A')
+	else if (dir == 'A')
 		new_x--;
-	else if (direction == 'S')
+	else if (dir == 'S')
 		new_y++;
-	else if (direction == 'D')
+	else if (dir == 'D')
 		new_x++;
 
-	// Verifica se está dentro dos limites do mapa
-	if (new_x >= 0 && new_x < map_width && new_y >= 0 && new_y < map_height)
+	// Verifica se a nova posição é válida
+	if (new_x >= 0 && new_x < game->map->width && new_y >= 0 && new_y < game->map->height)
 	{
-		// Verifica se a posição de destino NÃO é uma parede ('1')
-		if (map_grid[new_y][new_x] != '1')
-		{
-			*player_x = new_x;
-			*player_y = new_y;
-		}
+		if (is_valid_move(game, new_x, new_y))  // Se o movimento for válido
+			update_player_position(game, new_x, new_y);  // Atualiza a posição
 	}
 }
+
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -81,40 +81,14 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.action == MLX_PRESS)
 	{
 		if (keydata.key == MLX_KEY_W)
-			move_player(game->map->grid, &(game->player_x),
-				&(game->player_y), 'W', game->map->width, game->map->height);
+			move_player(game, 'W');
 		else if (keydata.key == MLX_KEY_A)
-			move_player(game->map->grid, &(game->player_x),
-				&(game->player_y), 'A', game->map->width, game->map->height);
+			move_player(game, 'A');
 		else if (keydata.key == MLX_KEY_S)
-			move_player(game->map->grid, &(game->player_x),
-				&(game->player_y), 'S', game->map->width, game->map->height);
+			move_player(game, 'S');
 		else if (keydata.key == MLX_KEY_D)
-			move_player(game->map->grid, &(game->player_x),
-				&(game->player_y), 'D', game->map->width, game->map->height);
+			move_player(game, 'D');
 		else if (keydata.key == MLX_KEY_ESCAPE)
 			mlx_close_window(game->mlx);
 	}
 }
-
-// void identify_map_elements(t_game *game)
-// {
-// 	int x;
-// 	int y;
-
-// 	y = 0;
-// 	while (y < game->map->height)
-// 	{
-// 		x = 0;
-// 		while (x < game->map->width)
-// 		{
-// 			if (game->map->grid[y][x] == 'P')
-// 			{
-// 				game->player_x = x;
-// 				game->player_y = y;
-// 			}
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }

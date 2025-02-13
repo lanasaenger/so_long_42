@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/11 18:14:08 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:28:08 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef struct s_game
 void	update(void	*param);
 void	move_image(t_game *game, int dx, int dy);
 void	key_hook(mlx_key_data_t keydata, void *param);
-void	render_map(t_game *game);
+void    render_map(t_game *game);
+void	render_tile(t_game *game, int x, int y);
 int     count_lines(const char *map_file);
 void	cleanup_game(t_game *game);
 int		init_game(t_game *game, const char *map_file);
@@ -59,6 +60,8 @@ void	load_textures(t_game *game);
 void	load_texture(mlx_t *mlx, mlx_image_t **image, const char *path);
 int		check_file_exists(const char *path);
 int		can_move(char **map_grid, int new_x, int new_y);
-void    move_player(char **map_grid, int *player_x, int *player_y, char direction, int map_width, int map_height);
-void    identify_map_elements(t_game *game);
+int		is_valid_move(t_game *game, int new_x, int new_y);
+t_map	*allocate_map(int lines);
+void	update_player_position(t_game *game, int new_x, int new_y);
+void handle_player_input(t_game *game);
 # endif
