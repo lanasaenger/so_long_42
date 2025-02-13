@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/13 16:48:49 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/13 19:05:10 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,26 @@ void	cleanup_game(t_game *game)
 		mlx_terminate(game->mlx);
 }
 
+
 int init_game(t_game *game, const char *map_path)
 {
+
     game->map = load_map(map_path);
     if (!game->map)
     {
         write(2, "Erro: Falha ao carregar mapa.\n", 31);
         return (false);
     }
-
     game->mlx = mlx_init(game->map->width * TILE_SIZE, game->map->height * TILE_SIZE, "totoro", true);
     if (!game->mlx)
     {
         write(2, "Erro: Falha ao inicializar MLX.\n", 33);
-        return (false);
+        return (false); 
     }
     load_textures(game);
+    set_player_position(game);
     return (true);
 }
-
 
 int main(int argc, char **argv)
 {
@@ -63,11 +64,8 @@ int main(int argc, char **argv)
         write(2, "Erro: Falha na inicialização do jogo.\n", 38);
         return (EXIT_FAILURE);
     }
-    render_map(&game); // Renderiza o mapa corretamente
-    // Captura eventos de teclado para movimentação
+    render_map(&game);
     mlx_key_hook(game.mlx, &key_hook, &game);
-    // Define um loop principal do MLX
-    mlx_loop_hook(game.mlx, update, &game);
     mlx_loop(game.mlx);
     cleanup_game(&game);
     return (EXIT_SUCCESS);

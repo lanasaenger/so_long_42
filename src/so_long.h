@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/13 16:28:08 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/13 19:03:17 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,7 @@ int		is_valid_move(t_game *game, int new_x, int new_y);
 t_map	*allocate_map(int lines);
 void	update_player_position(t_game *game, int new_x, int new_y);
 void handle_player_input(t_game *game);
+void set_player_position(t_game *game);
+void move_player(t_game *game, char direction);
+void key_hook(mlx_key_data_t keydata, void *param);
 # endif

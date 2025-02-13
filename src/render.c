@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   render.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 20:08:37 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/13 16:03:09 by lavinia          ###   ########.fr       */
+/*   Created: 2025/02/13 18:57:31 by lamachad          #+#    #+#             */
+/*   Updated: 2025/02/13 18:58:00 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	load_textures(t_game *game)
 	load_texture(game->mlx, &game->textures.floor, "assets/bottom.png");
 	load_texture(game->mlx, &game->textures.collectible, "assets/collectable.png");
 	load_texture(game->mlx, &game->textures.exit, "assets/portal.png");
-	load_texture(game->mlx, &game->textures.player, "assets/character.png");
+	load_texture(game->mlx, &game->textures.player, "assets/character2.png");
 	if (!(game->textures.player))
 	{
     	write(2, "Erro ao carregar a textura do jogador.\n", 39);
@@ -93,6 +93,7 @@ void    render_map(t_game *game)
         x = 0;
         while (x < game->map->width)
         {
+			mlx_image_to_window(game->mlx, game->textures.floor, x * TILE_SIZE, y * TILE_SIZE);
             render_tile(game, x, y);
             x++;
         }

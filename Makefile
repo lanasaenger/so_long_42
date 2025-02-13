@@ -6,7 +6,7 @@
 #    By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 20:06:17 by lamachad          #+#    #+#              #
-#    Updated: 2025/01/30 18:43:49 by lavinia          ###   ########.fr        #
+#    Updated: 2025/02/13 18:54:53 by lavinia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,9 @@ FLAGSMLX := -ldl -lglfw -pthread -lm
 HEADERS		:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
 SRCS	:= ./src/main.c \
-            ./src/so_long.c \
-            ./src/utils.c \
-			./src/move.c \
-			./src/texture.c \
-			./src/count_line.c \
+						./src/move.c \
+						./src/render.c \
+						./src/load.c \
 			
 
 OBJS	:= ${SRCS:.c=.o}
