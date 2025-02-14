@@ -6,7 +6,7 @@
 #    By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 20:06:17 by lamachad          #+#    #+#              #
-#    Updated: 2025/02/13 18:54:53 by lavinia          ###   ########.fr        #
+#    Updated: 2025/02/14 17:34:29 by lavinia          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	:= ./src/main.c \
 						./src/move.c \
 						./src/render.c \
 						./src/load.c \
+						./src/validate.c \
 			
 
 OBJS	:= ${SRCS:.c=.o}

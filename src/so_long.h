@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/13 19:03:17 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/14 17:35:05 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_map
 	char	**grid;
 	int		width;
 	int		height;
+    int     collectibles;
 }t_map;
 
 typedef struct s_game
@@ -35,6 +36,7 @@ typedef struct s_game
     int         player_x; // Posição X do jogador no mapa
     int         player_y; // Posição Y do jogador no mapa
     t_map       *map; // Estrutura que representa o mapa
+    int         moves;
     struct  
     {
         mlx_image_t *wall;
@@ -67,4 +69,7 @@ void handle_player_input(t_game *game);
 void set_player_position(t_game *game);
 void move_player(t_game *game, char direction);
 void key_hook(mlx_key_data_t keydata, void *param);
+void collect_item(t_game *game, int x, int y);
+void process_move(t_game *game, int new_x, int new_y);
+void validate_win(t_game *game);
 # endif
