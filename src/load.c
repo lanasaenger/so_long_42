@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:58:43 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/16 01:33:40 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 02:46:23 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int count_lines(const char *map_file)
 	free(line);
 	return (count);
 }
-
 
 // Função para preencher o mapa linha por linha usando get_next_line
 int fill_map(int fd, int lines, char **grid)

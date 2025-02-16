@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:56:28 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/16 01:35:54 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 02:45:21 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ void move_player(t_game *game, char direction)
     int new_x;
     int new_y;
 
-	new_x =  game->player_x / TILE_SIZE; // Coordenada no grid
-	new_y = game->player_y / TILE_SIZE;
+    // Coordenada atual do jogador no grid
+    new_x = game->player_x / TILE_SIZE;
+    new_y = game->player_y / TILE_SIZE;
     if (direction == 'W')
         new_y--;
     else if (direction == 'A')
@@ -64,12 +65,12 @@ void move_player(t_game *game, char direction)
     if (new_x >= 0 && new_x < game->map->width &&
         new_y >= 0 && new_y < game->map->height)
     {
-        if (game->map->grid[new_y][new_x] != '1') // Verifica se não é parede
+        if (game->map->grid[new_y][new_x] != '1') 
         {
-            game->player_x = new_x * TILE_SIZE; // Atualiza a posição no grid
+            mlx_image_to_window(game->mlx, game->textures.floor, game->player_x, game->player_y);
+            game->player_x = new_x * TILE_SIZE;
             game->player_y = new_y * TILE_SIZE;
-            game->textures.player->instances[0].x = game->player_x;
-            game->textures.player->instances[0].y = game->player_y;
+            mlx_image_to_window(game->mlx, game->textures.player, game->player_x, game->player_y);
         }
     }
 }
