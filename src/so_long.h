@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/16 04:13:57 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 04:49:18 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,10 @@ void validate_win(t_game *game);
 void finish_level(t_game *game);
 int count_collectibles(char **grid, int height, int width);
 void    print_move_count(int moves);
+void	flood_fill(char **map, int y, int x);
+int	check_map_rules(t_game *game);
+int	check_map_accessibility(t_game *game);
+void	free_map(char **map, int height);
+char	**copy_map(char **map, int height, int width);
+
 # endif

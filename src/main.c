@@ -6,11 +6,24 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/16 04:23:12 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 04:50:52 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	free_map(char **map, int height)
+{
+	int	y;
+
+	y = 0;
+	while (y < height)
+	{
+		free(map[y]);
+		y++;
+	}
+	free(map);
+}
 
 void    print_move_count(int moves)
 {
@@ -44,16 +57,27 @@ int init_game(t_game *game, const char *map_path)
         write(2, "Erro: Falha ao carregar mapa.\n", 31);
         return (false);
     }
+
+    // Valida o mapa antes de continuar a inicialização
+    if (!check_map_rules(game) || !check_map_accessibility(game))
+    {
+        write(2, "Erro: Mapa inválido.\n", 22);
+        return (false);
+    }
+
+    // Inicializa o MLX
     game->mlx = mlx_init(game->map->width * TILE_SIZE, game->map->height * TILE_SIZE, "totoro", true);
     if (!game->mlx)
     {
         write(2, "Erro: Falha ao inicializar MLX.\n", 33);
-        return (false); 
+        return (false);
     }
-    load_textures(game);
-    set_player_position(game);
-    game->map->collectibles = count_collectibles(game->map->grid, game->map->height, game->map->width);
-    return (true);
+
+    load_textures(game);           // Carrega as texturas
+    set_player_position(game);     // Define a posição do jogador
+    game->map->collectibles = count_collectibles(game->map->grid, game->map->height, game->map->width); // Conta os coletáveis
+
+    return (true);  // Sucesso na inicialização
 }
 
 
