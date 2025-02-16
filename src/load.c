@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:58:43 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/13 19:02:27 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 01:33:40 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ t_map *allocate_map(int lines)
 
 t_map *load_map(const char *map_file)
 {
-    int fd = open(map_file, O_RDONLY);
+    int fd;
+
+    fd =  open(map_file, O_RDONLY);
     if (fd < 0)
         return (perror("Erro ao abrir o arquivo do mapa"), NULL);
     int lines = count_lines(map_file);

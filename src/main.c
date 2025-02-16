@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/13 19:05:10 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 01:30:08 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	cleanup_game(t_game *game)
 
 int init_game(t_game *game, const char *map_path)
 {
-
     game->map = load_map(map_path);
     if (!game->map)
     {

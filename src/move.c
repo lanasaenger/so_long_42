@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:56:28 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/13 19:14:20 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 01:35:54 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	is_valid_move(t_game *game, int new_x, int new_y)
 
 void set_player_position(t_game *game)
 {
-    int y = 0;
+    int y;
+
+	y = 0;
     while (y < game->map->height)
     {
         int x = 0;
@@ -46,9 +48,11 @@ void set_player_position(t_game *game)
 
 void move_player(t_game *game, char direction)
 {
-    int new_x = game->player_x / TILE_SIZE; // Coordenada no grid
-    int new_y = game->player_y / TILE_SIZE;
+    int new_x;
+    int new_y;
 
+	new_x =  game->player_x / TILE_SIZE; // Coordenada no grid
+	new_y = game->player_y / TILE_SIZE;
     if (direction == 'W')
         new_y--;
     else if (direction == 'A')
@@ -57,8 +61,6 @@ void move_player(t_game *game, char direction)
         new_y++;
     else if (direction == 'D')
         new_x++;
-
-    // Verifica se a nova posição é válida dentro do mapa
     if (new_x >= 0 && new_x < game->map->width &&
         new_y >= 0 && new_y < game->map->height)
     {
