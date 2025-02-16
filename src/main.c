@@ -6,11 +6,18 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/16 01:30:08 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 04:23:12 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void    print_move_count(int moves)
+{
+    ft_putstr_fd("Moves: ", 1);
+    ft_putnbr_fd(moves, 1);
+    ft_putstr_fd("\n", 1);
+}
 
 void	cleanup_game(t_game *game)
 {
@@ -45,8 +52,10 @@ int init_game(t_game *game, const char *map_path)
     }
     load_textures(game);
     set_player_position(game);
+    game->map->collectibles = count_collectibles(game->map->grid, game->map->height, game->map->width);
     return (true);
 }
+
 
 int main(int argc, char **argv)
 {

@@ -6,20 +6,22 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:21:03 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/16 01:32:37 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 04:00:34 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "so_long.h"
 
 void collect_item(t_game *game, int x, int y)
 {
     if (game->map->grid[y][x] == 'C')
     {
+        // Decrementa o número de itens coletáveis restantes
         game->map->collectibles--;
+        // Marca o local como vazio
         game->map->grid[y][x] = '0';
-        render_tile(game, x, y);
+        // Atualiza o mapa, removendo o coletável da tela
+        mlx_image_to_window(game->mlx, game->textures.floor, x * TILE_SIZE, y * TILE_SIZE);
     }
 }
 
@@ -78,3 +80,14 @@ int count_collectibles(char **grid, int height, int width)
     }
     return (count);
 }
+
+void finish_level(t_game *game)
+{
+    // Verifica se todos os itens foram coletados antes de finalizar
+    if (game->map->collectibles == 0)
+    {
+        mlx_close_window(game->mlx);  // Fecha a janela
+        exit(0);  // Encerra o jogo
+    }
+}
+

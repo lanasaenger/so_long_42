@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/14 17:35:05 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/16 04:13:57 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,7 @@ void key_hook(mlx_key_data_t keydata, void *param);
 void collect_item(t_game *game, int x, int y);
 void process_move(t_game *game, int new_x, int new_y);
 void validate_win(t_game *game);
+void finish_level(t_game *game);
+int count_collectibles(char **grid, int height, int width);
+void    print_move_count(int moves);
 # endif
