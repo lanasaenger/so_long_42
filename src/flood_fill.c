@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 04:30:46 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/16 04:49:06 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/17 01:30:10 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	flood_fill(char **map, int y, int x)
 {
 	if (map[y][x] == '1' || map[y][x] == 'F') // Evita paredes e já visitados
 		return ;
+	if (map[y][x] == 'E')
+	{
+		map[y][x] = 'F';
+	}
 	map[y][x] = 'F'; // Marca como visitado
 	flood_fill(map, y - 1, x); // Cima
 	flood_fill(map, y + 1, x); // Baixo
@@ -84,7 +88,11 @@ int	check_map_accessibility(t_game *game)
 	}
 
 	// Aplicar Flood Fill a partir da posição do jogador
-	flood_fill(map_copy, game->player_y, game->player_x);
+	flood_fill(map_copy, 1, 1);
+	for (int x = 0; x < 7; x++)
+	{
+		fprintf(stderr, "%s\n", map_copy[x]);
+	}
 
 	// Verificar se todos os coletáveis e a saída foram alcançados
 	y = -1;

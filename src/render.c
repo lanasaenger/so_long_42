@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                            :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:57:31 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/13 18:58:00 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/17 00:58:40 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_file_exists(const char *path)
 
 void	load_texture(mlx_t *mlx, mlx_image_t **image, const char *path)
 {
-	mlx_texture_t *texture;
+	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(path);
 	if (!check_file_exists(path))
@@ -54,54 +54,60 @@ void	load_textures(t_game *game)
 {
 	load_texture(game->mlx, &game->textures.wall, "assets/wall.png");
 	load_texture(game->mlx, &game->textures.floor, "assets/bottom.png");
-	load_texture(game->mlx, &game->textures.collectible, "assets/collectable.png");
+	load_texture(game->mlx, &game->textures.collectible,
+		"assets/collectable.png");
 	load_texture(game->mlx, &game->textures.exit, "assets/portal.png");
 	load_texture(game->mlx, &game->textures.player, "assets/character2.png");
 	if (!(game->textures.player))
 	{
-    	write(2, "Erro ao carregar a textura do jogador.\n", 39);
-    	exit(EXIT_FAILURE);
+		write(2, "Erro ao carregar a textura do jogador.\n", 39);
+		exit(EXIT_FAILURE);
 	}
 }
 
-
-void    render_tile(t_game *game, int x, int y)
+void	render_tile(t_game *game, int x, int y)
 {
-    if (game->map->grid[y][x] == '1')
-        mlx_image_to_window(game->mlx, game->textures.wall, x * TILE_SIZE, y * TILE_SIZE);
-    else if (game->map->grid[y][x] == '0')
-        mlx_image_to_window(game->mlx, game->textures.floor, x * TILE_SIZE, y * TILE_SIZE);
-    else if (game->map->grid[y][x] == 'C')
-        mlx_image_to_window(game->mlx, game->textures.collectible, x * TILE_SIZE, y * TILE_SIZE);
-    else if (game->map->grid[y][x] == 'E')
-        mlx_image_to_window(game->mlx, game->textures.exit, x * TILE_SIZE, y * TILE_SIZE);
-    else if (game->map->grid[y][x] == 'P')
-    {
-        game->player_x = x * TILE_SIZE;
-        game->player_y = y * TILE_SIZE;
-    }
+	if (game->map->grid[y][x] == '1')
+		mlx_image_to_window(game->mlx, game->textures.wall, x * TILE_SIZE, y
+			* TILE_SIZE);
+	else if (game->map->grid[y][x] == '0')
+		mlx_image_to_window(game->mlx, game->textures.floor, x * TILE_SIZE, y
+			* TILE_SIZE);
+	else if (game->map->grid[y][x] == 'C')
+		mlx_image_to_window(game->mlx, game->textures.collectible, x
+			* TILE_SIZE, y * TILE_SIZE);
+	else if (game->map->grid[y][x] == 'E')
+		mlx_image_to_window(game->mlx, game->textures.exit, x * TILE_SIZE, y
+			* TILE_SIZE);
+	else if (game->map->grid[y][x] == 'P')
+	{
+		game->player_x = x * TILE_SIZE;
+		game->player_y = y * TILE_SIZE;
+	}
 }
 
-void    render_map(t_game *game)
+void	render_map(t_game *game)
 {
-    int x;
-    int y;
+	int	x;
+	int	y;
 
-    y = 0;
-    while (y < game->map->height)
-    {
-        x = 0;
-        while (x < game->map->width)
-        {
-			mlx_image_to_window(game->mlx, game->textures.floor, x * TILE_SIZE, y * TILE_SIZE);
-            render_tile(game, x, y);
-            x++;
-        }
-        y++;
-    }
-    if (mlx_image_to_window(game->mlx, game->textures.player, game->player_x, game->player_y) < 0)
-    {
-        write(2, "Erro ao adicionar jogador à janela.\n", 37);
-        exit(EXIT_FAILURE);
-    }
-}	
+	y = 0;
+	while (y < game->map->height)
+	{
+		x = 0;
+		while (x < game->map->width)
+		{
+			mlx_image_to_window(game->mlx, game->textures.floor, x * TILE_SIZE,
+				y * TILE_SIZE);
+			render_tile(game, x, y);
+			x++;
+		}
+		y++;
+	}
+	if (mlx_image_to_window(game->mlx, game->textures.player, game->player_x,
+			game->player_y) < 0)
+	{
+		write(2, "Erro ao adicionar jogador à janela.\n", 37);
+		exit(EXIT_FAILURE);
+	}
+}
