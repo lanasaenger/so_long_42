@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:21:03 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 14:18:41 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:00:14 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	collect_item(t_game *game, int x, int y)
 			y * TILE_SIZE);
 	}
 }
-
-
 
 void	process_move(t_game *game, int new_x, int new_y)
 {

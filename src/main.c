@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 16:20:45 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:22:15 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_map(char **map, int height)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < height)
@@ -24,7 +24,6 @@ void	free_map(char **map, int height)
 	}
 	free(map);
 }
-
 
 void	print_move_count(int moves)
 {
@@ -73,8 +72,6 @@ int	init_game(t_game *game, const char *map_path)
 			game->map->height, game->map->width);
 	return (true);
 }
-
-
 
 int	main(int argc, char **argv)
 {

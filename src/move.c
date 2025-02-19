@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:56:28 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 14:18:58 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:52:19 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,22 @@ void	set_player_position(t_game *game)
 		y++;
 	}
 }
+void	update_player_position(t_game *game, int new_x, int new_y, char next_tile)
+{
+	game->moves++;
+	print_move_count(game->moves);
+	mlx_image_to_window(game->mlx, game->textures.floor, game->player_x,
+		game->player_y);
+	if (next_tile == 'C')
+		collect_item(game, new_x, new_y);
+	game->player_x = new_x * TILE_SIZE;
+	game->player_y = new_y * TILE_SIZE;
+	mlx_image_to_window(game->mlx, game->textures.player, game->player_x,
+		game->player_y);
+	if (next_tile == 'E' && game->map->collectibles == 0)
+		mlx_close_window(game->mlx);
+}
+
 void	move_player(t_game *game, char direction)
 {
 	int	new_x;
@@ -62,23 +78,13 @@ void	move_player(t_game *game, char direction)
 		new_y++;
 	else if (direction == 'D')
 		new_x++;
-
 	if (new_x < 0 || new_x >= game->map->width || new_y < 0
 		|| new_y >= game->map->height)
 		return ;
 	next_tile = game->map->grid[new_y][new_x];
 	if (next_tile == '1' || (next_tile == 'E' && game->map->collectibles > 0))
 		return ;
-	mlx_image_to_window(game->mlx, game->textures.floor, game->player_x,
-		game->player_y);
-	if (next_tile == 'C')
-		collect_item(game, new_x, new_y);
-	game->player_x = new_x * TILE_SIZE;
-	game->player_y = new_y * TILE_SIZE;
-	mlx_image_to_window(game->mlx, game->textures.player, game->player_x,
-		game->player_y);
-	if (next_tile == 'E' && game->map->collectibles == 0)
-		mlx_close_window(game->mlx);
+	update_player_position(game, new_x, new_y, next_tile);
 }
 
 

@@ -6,7 +6,7 @@
 #    By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 21:00:56 by lamachad          #+#    #+#              #
-#    Updated: 2025/01/20 18:46:23 by lamachad         ###   ########.fr        #
+#    Updated: 2025/02/19 20:21:18 by lamachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $@
 
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)

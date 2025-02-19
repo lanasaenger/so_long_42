@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:25:04 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 16:21:48 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:54:11 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,23 @@ void	set_map_null(t_game *game)
 	game->map->grid = NULL;
 }
 
-void cleanup(t_game *game)
+void	cleanup(t_game *game)
 {
-    if (game)
-    {
-        cleanup_game(game);
-	    if (game->map)
-	    {
-		    if (game->map->grid)
-			    free_map(game->map->grid, game->map->height);
-		    free(game->map);
-	    }
-	    if (game->mlx)
-	    {
-		    mlx_terminate(game->mlx);
-	    }
-	    free(game);
-    }
+	if (game)
+	{
+		cleanup_game(game);
+		if (game->map)
+		{
+			if (game->map->grid)
+				free_map(game->map->grid, game->map->height);
+			free(game->map);
+		}
+		if (game->mlx)
+		{
+			mlx_terminate(game->mlx);
+		}
+		free(game);
+	}
 }
+
 
