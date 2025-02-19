@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:56:28 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/17 01:00:39 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:18:58 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	set_player_position(t_game *game)
 		y++;
 	}
 }
-
 void	move_player(t_game *game, char direction)
 {
 	int	new_x;
 	int	new_y;
+	char	next_tile;
 
 	new_x = game->player_x / TILE_SIZE;
 	new_y = game->player_y / TILE_SIZE;
@@ -62,27 +62,26 @@ void	move_player(t_game *game, char direction)
 		new_y++;
 	else if (direction == 'D')
 		new_x++;
-	if (new_x >= 0 && new_x < game->map->width && new_y >= 0
-		&& new_y < game->map->height)
-	{
-		if (game->map->grid[new_y][new_x] == 'C')
-			collect_item(game, new_x, new_y);
-		else if (game->map->grid[new_y][new_x] == 'E'
-			&& game->map->collectibles == 0)
-			finish_level(game);
-		else if (game->map->grid[new_y][new_x] != '1')
-		{
-			mlx_image_to_window(game->mlx, game->textures.floor, game->player_x,
-				game->player_y);
-			game->player_x = new_x * TILE_SIZE;
-			game->player_y = new_y * TILE_SIZE;
-			mlx_image_to_window(game->mlx, game->textures.player,
-				game->player_x, game->player_y);
-			game->moves++;
-			print_move_count(game->moves);
-		}
-	}
+
+	if (new_x < 0 || new_x >= game->map->width || new_y < 0
+		|| new_y >= game->map->height)
+		return ;
+	next_tile = game->map->grid[new_y][new_x];
+	if (next_tile == '1' || (next_tile == 'E' && game->map->collectibles > 0))
+		return ;
+	mlx_image_to_window(game->mlx, game->textures.floor, game->player_x,
+		game->player_y);
+	if (next_tile == 'C')
+		collect_item(game, new_x, new_y);
+	game->player_x = new_x * TILE_SIZE;
+	game->player_y = new_y * TILE_SIZE;
+	mlx_image_to_window(game->mlx, game->textures.player, game->player_x,
+		game->player_y);
+	if (next_tile == 'E' && game->map->collectibles == 0)
+		mlx_close_window(game->mlx);
 }
+
+
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {

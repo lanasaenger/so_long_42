@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+         #
+#    By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 20:06:17 by lamachad          #+#    #+#              #
-#    Updated: 2025/02/16 04:47:34 by lavinia          ###   ########.fr        #
+#    Updated: 2025/02/19 15:25:46 by lamachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS	:= ./src/main.c \
 						./src/load.c \
 						./src/validate.c \
 						./src/flood_fill.c \
+						./src/utils.c \
 			
 
 OBJS	:= ${SRCS:.c=.o}

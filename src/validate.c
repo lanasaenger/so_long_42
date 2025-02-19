@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:21:03 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/17 00:59:27 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:18:41 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ void	collect_item(t_game *game, int x, int y)
 	if (game->map->grid[y][x] == 'C')
 	{
 		game->map->collectibles--;
-		mlx_image_to_window(game->mlx, game->textures.floor, game->player_x,
-			game->player_y);
 		game->map->grid[y][x] = '0';
-		game->player_x = x * TILE_SIZE;
-		game->player_y = y * TILE_SIZE;
-		mlx_image_to_window(game->mlx, game->textures.player, game->player_x,
-			game->player_y);
+		mlx_image_to_window(game->mlx, game->textures.floor, x * TILE_SIZE,
+			y * TILE_SIZE);
 	}
 }
+
+
 
 void	process_move(t_game *game, int new_x, int new_y)
 {

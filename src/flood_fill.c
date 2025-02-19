@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 04:30:46 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/17 01:30:10 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:06:18 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 // Preenchimento recursivo para marcar áreas acessíveis
 void	flood_fill(char **map, int y, int x)
 {
-	if (map[y][x] == '1' || map[y][x] == 'F') // Evita paredes e já visitados
+	if (map[y][x] == '1' || map[y][x] == 'F')
 		return ;
 	if (map[y][x] == 'E')
 	{
 		map[y][x] = 'F';
 	}
-	map[y][x] = 'F'; // Marca como visitado
-	flood_fill(map, y - 1, x); // Cima
-	flood_fill(map, y + 1, x); // Baixo
-	flood_fill(map, y, x - 1); // Esquerda
-	flood_fill(map, y, x + 1); // Direita
+	map[y][x] = 'F';
+	flood_fill(map, y - 1, x);
+	flood_fill(map, y + 1, x);
+	flood_fill(map, y, x - 1);
+	flood_fill(map, y, x + 1);
 }
 
 // Valida se o mapa possui o número correto de elementos
@@ -73,7 +73,6 @@ int	check_map_rules(t_game *game)
 	return (1);
 }
 
-// Verifica se todos os coletáveis e a saída são acessíveis via Flood Fill
 int	check_map_accessibility(t_game *game)
 {
 	char	**map_copy;
@@ -86,15 +85,9 @@ int	check_map_accessibility(t_game *game)
 		ft_putstr_fd("Erro: Falha ao copiar o mapa!\n", 2);
 		return (0);
 	}
-
-	// Aplicar Flood Fill a partir da posição do jogador
-	flood_fill(map_copy, 1, 1);
-	for (int x = 0; x < 7; x++)
-	{
-		fprintf(stderr, "%s\n", map_copy[x]);
-	}
-
-	// Verificar se todos os coletáveis e a saída foram alcançados
+	y = game->player_y / TILE_SIZE;
+	x = game->player_x / TILE_SIZE;
+	flood_fill(map_copy, y, x);
 	y = -1;
 	while (++y < game->map->height)
 	{
@@ -112,6 +105,7 @@ int	check_map_accessibility(t_game *game)
 	free_map(map_copy, game->map->height);
 	return (1);
 }
+
 char	**copy_map(char **map, int height, int width)
 {
 	char	**new_map;

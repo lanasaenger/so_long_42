@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/17 01:18:19 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:20:45 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 void	free_map(char **map, int height)
 {
-	int	y;
+	int i;
 
-	y = 0;
-	while (y < height)
+	i = 0;
+	while (i < height)
 	{
-		free(map[y]);
-		y++;
+		free(map[i]);
+		i++;
 	}
 	free(map);
 }
+
 
 void	print_move_count(int moves)
 {
@@ -44,16 +45,6 @@ void	cleanup_game(t_game *game)
 		mlx_delete_image(game->mlx, game->textures.exit);
 	if (game->textures.player)
 		mlx_delete_image(game->mlx, game->textures.player);
-	if (game->mlx)
-		mlx_terminate(game->mlx);
-}
-
-void	set_map_null(t_game *game)
-{
-	game->map->collectibles = 0;
-	game->map->height = 0;
-	game->map->width = 0;
-	game->map->grid = NULL;
 }
 
 int	init_game(t_game *game, const char *map_path)
@@ -83,13 +74,7 @@ int	init_game(t_game *game, const char *map_path)
 	return (true);
 }
 
-void	set_game_null(t_game *game)
-{
-	game->map = NULL;
-	game->moves = 0;
-	game->player_x = 0;
-	game->player_y = 0;
-}
+
 
 int	main(int argc, char **argv)
 {
@@ -115,6 +100,6 @@ int	main(int argc, char **argv)
 	render_map(game);
 	mlx_key_hook(game->mlx, &key_hook, game);
 	mlx_loop(game->mlx);
-	cleanup_game(game);
+	cleanup(game);
 	return (EXIT_SUCCESS);
 }
