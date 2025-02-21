@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 19:22:15 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:49:33 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_map(char **map, int height)
 	int	i;
 
 	i = 0;
+	if (!map)
+		return;
 	while (i < height)
 	{
 		free(map[i]);
@@ -52,6 +54,7 @@ int	init_game(t_game *game, const char *map_path)
 	if (!game->map)
 	{
 		write(2, "Erro: Falha ao carregar mapa.\n", 31);
+		free (game->map);
 		return (false);
 	}
 	set_player_position(game);
@@ -87,11 +90,13 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 	{
 		write(2, "Erro: Nenhum arquivo de mapa especificado.\n", 44);
+		free(game);
 		return (EXIT_FAILURE);
 	}
 	if (!init_game(game, argv[1]))
 	{
 		write(2, "Erro: Falha na inicialização do jogo.\n", 38);
+		free(game);
 		return (EXIT_FAILURE);
 	}
 	render_map(game);

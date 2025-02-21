@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:58:43 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 17:59:58 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:35:35 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ int	fill_map(int fd, int lines, char **grid)
 	}
 	grid[i] = NULL;
 	return (1);
+}
+
+void	free_gnl(int fd)
+{
+	char	*line;
+
+	while ((line = get_next_line(fd)))
+		free(line);
 }
 
 t_map	*allocate_map(int lines)
