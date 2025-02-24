@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/20 19:49:33 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:23:08 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ void	free_map(char **map, int height)
 		i++;
 	}
 	free(map);
-}
-
-void	print_move_count(int moves)
-{
-	ft_putstr_fd("Moves: ", 1);
-	ft_putnbr_fd(moves, 1);
-	ft_putstr_fd("\n", 1);
 }
 
 void	cleanup_game(t_game *game)
@@ -76,29 +69,40 @@ int	init_game(t_game *game, const char *map_path)
 	return (true);
 }
 
+static int	check_args_and_init(t_game **game, int argc, char *map)
+{
+	if (argc < 2)
+	{
+		write(2, "Erro: Nenhum arquivo de mapa especificado.\n", 44);
+		return (EXIT_FAILURE);
+	}
+	if (!is_valid_map_extension(map))
+	{
+		ft_putstr_fd("Erro: O arquivo não tem a extensão .ber\n", 2);
+		return (EXIT_FAILURE);
+	}
+	*game = malloc(sizeof(t_game));
+	if (!(*game))
+	{
+		write(2, "Erro: The game couldn't be initialized\n", 38);
+		return (EXIT_FAILURE);
+	}
+	set_game_null(*game);
+	if (!init_game(*game, map))
+	{
+		write(2, "Erro: Falha na inicialização do jogo.\n", 38);
+		free(*game);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	*game;
 
-	game = malloc(sizeof(t_game));
-	if (!game)
-	{
-		write(2, "Erro: The game could't be initialized\n", 38);
+	if (check_args_and_init(&game, argc, argv[1]) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	}
-	set_game_null(game);
-	if (argc < 2)
-	{
-		write(2, "Erro: Nenhum arquivo de mapa especificado.\n", 44);
-		free(game);
-		return (EXIT_FAILURE);
-	}
-	if (!init_game(game, argv[1]))
-	{
-		write(2, "Erro: Falha na inicialização do jogo.\n", 38);
-		free(game);
-		return (EXIT_FAILURE);
-	}
 	render_map(game);
 	mlx_key_hook(game->mlx, &key_hook, game);
 	mlx_loop(game->mlx);

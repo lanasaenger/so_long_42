@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 04:30:46 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 19:26:58 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:21:20 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	flood_fill(char **map, int y, int x)
 	flood_fill(map, y, x - 1);
 	flood_fill(map, y, x + 1);
 }
-
-
 
 char	**free_map_on_fail(char **map, int y)
 {
@@ -62,4 +60,22 @@ char	**copy_map(char **map, int height, int width)
 	return (new_map);
 }
 
+int is_valid_map_extension(const char *filename)
+{
+    const char *ext;
 
+	ext = ft_strrchr(filename, '.');
+    if (!ext)
+        return 0;
+    if (ft_strncmp(ext, ".ber", 4) == 0)
+        return 1;
+
+    return 0;
+}
+
+void	print_move_count(int moves)
+{
+	ft_putstr_fd("Moves: ", 1);
+	ft_putnbr_fd(moves, 1);
+	ft_putstr_fd("\n", 1);
+}

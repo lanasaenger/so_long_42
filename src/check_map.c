@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:19:35 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 19:36:25 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:55:45 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,25 @@ int	check_map_characters(t_game *game, int *p, int *c, int *e)
 	return (1);
 }
 
-int	check_map_rules(t_game *game)
+int check_map_rules(t_game *game)
 {
-	int	p;
-	int	c;
-	int	e;
+    int p, c, e;
 
-	p = 0;
-	c = 0;
-	e = 0;
-	if (!check_map_characters(game, &p, &c, &e))
-		return (0);
-	if (p != 1 || c < 1 || e != 1)
-		return (ft_putstr_fd(
-				"Erro: O mapa precisa de 1 jogador, pelo menos 1 coletável e 1 saída!\n", 2), 0);
-	return (1);
+    p = 0;
+    c = 0;
+    e = 0;
+    if (!check_map_characters(game, &p, &c, &e))
+        return 0;
+    if (!is_map_rectangular(game))
+        return 0;
+    if (p != 1 || c < 1 || e != 1)
+    {
+        ft_putstr_fd("Erro: O mapa precisa de 1 jogador, pelo menos 1 coletável e 1 saída!\n", 2);
+        return 0;
+    }
+    return 1;
 }
+
 
 
 int	validate_accessibility(t_game *game, char **map_copy)
@@ -96,3 +99,35 @@ int	check_map_accessibility(t_game *game)
 	free_map(map_copy, game->map->height);
 	return (1);
 }
+
+int	is_map_rectangular(t_game *game)
+{
+	size_t	y;
+	size_t	line_length;
+	char	*line;
+
+	if (!game || !game->map || !game->map->grid || !game->map->grid[0])
+		return (0);
+	line = game->map->grid[0];
+	if (line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = '\0';
+	line_length = ft_strlen(line);
+	y = 1;
+	while (y < (size_t)game->map->height)
+	{
+		line = game->map->grid[y];
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
+		if (ft_strlen(line) != line_length)
+		{
+			ft_putstr_fd("Erro: O mapa não é retangular!\n", 2);
+			return (0);
+		}
+		y++;
+	}
+	return (1);
+}
+
+
+
+

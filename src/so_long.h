@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 19:52:48 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:46:52 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,6 @@ void	validate_win(t_game *game);
 int		count_collectibles(char **grid, int height, int width);
 void	finish_level(t_game *game);
 void	update_player_position(t_game *game, int new_x, int new_y, char next_tile);
+int is_map_rectangular(t_game *game);
+int is_valid_map_extension(const char *filename);
 #endif
