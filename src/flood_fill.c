@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 04:30:46 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 13:51:29 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:13:20 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	flood_fill(char **map, int y, int x)
 {
-	if (map[y][x] == '1' || map[y][x] == 'F')
-		return ;
 	if (map[y][x] == 'E')
 	{
 		map[y][x] = 'F';
 	}
+	if (map[y][x] == '1' || map[y][x] == 'F')
+		return ;
 	map[y][x] = 'F';
 	flood_fill(map, y - 1, x);
 	flood_fill(map, y + 1, x);
