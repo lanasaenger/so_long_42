@@ -6,7 +6,7 @@
 #    By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 20:06:17 by lamachad          #+#    #+#              #
-#    Updated: 2025/02/19 20:29:24 by lamachad         ###   ########.fr        #
+#    Updated: 2025/02/26 19:38:36 by lamachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS	:= ./src/main.c \
 						./src/flood_fill.c \
 						./src/utils.c \
 						./src/check_map.c \
+						./src/size_map.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

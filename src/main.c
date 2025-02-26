@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 14:11:15 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:38:01 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	init_game(t_game *game, const char *map_path)
 	{
 		write(2, "Erro: Falha ao carregar mapa.\n", 31);
 		return (false);
+	}
+	if (!is_map_closed(game->map))
+	{
+		free_map(game->map);
+		free(game);
+		return (0);
 	}
 	set_player_position(game);
 	if (!check_map_rules(game) || !check_map_accessibility(game))
