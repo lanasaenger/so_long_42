@@ -6,14 +6,12 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 04:30:46 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 12:43:19 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:51:29 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
-// Preenchimento recursivo para marcar áreas acessíveis
 void	flood_fill(char **map, int y, int x)
 {
 	if (map[y][x] == '1' || map[y][x] == 'F')
@@ -60,17 +58,16 @@ char	**copy_map(char **map, int height, int width)
 	return (new_map);
 }
 
-int is_valid_map_extension(const char *filename)
+int	is_valid_map_extension(const char *filename)
 {
-    const char *ext;
+	const char	*ext;
 
 	ext = ft_strrchr(filename, '.');
-    if (!ext)
-        return 0;
-    if (ft_strncmp(ext, ".ber", 4) == 0)
-        return 1;
-
-    return 0;
+	if (!ext)
+		return (0);
+	if (ft_strncmp(ext, ".ber", 4) == 0)
+		return (1);
+	return (0);
 }
 
 void	print_move_count(int moves)

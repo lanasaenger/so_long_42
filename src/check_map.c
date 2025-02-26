@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:19:35 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 12:11:25 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 14:01:47 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,26 @@ int	check_map_characters(t_game *game, int *p, int *c, int *e)
 	return (1);
 }
 
-int check_map_rules(t_game *game)
+int	check_map_rules(t_game *game)
 {
-    int p, c, e;
+	int	p;
+	int	c;
+	int	e;
 
-    p = 0;
-    c = 0;
-    e = 0;
-    if (!check_map_characters(game, &p, &c, &e))
-        return 0;
-    if (!is_map_rectangular(game))
-        return 0;
-    if (p != 1 || c < 1 || e != 1)
-    {
-        ft_putstr_fd("Erro: O mapa precisa de 1 jogador, pelo menos 1 coletável e 1 saída!\n", 2);
-        return 0;
-    }
-    return 1;
+	p = 0;
+	c = 0;
+	e = 0;
+	if (!check_map_characters(game, &p, &c, &e))
+		return (0);
+	if (!is_map_rectangular(game))
+		return (0);
+	if (p != 1 || c < 1 || e != 1)
+	{
+		ft_putstr_fd("Erro: O mapa precisa de 1 jogador, pelo menos 1 coletável e 1 saída!\n", 2);
+		return (0);
+	}
+	return (1);
 }
-
-
 
 int	validate_accessibility(t_game *game, char **map_copy)
 {
@@ -127,7 +127,3 @@ int	is_map_rectangular(t_game *game)
 	}
 	return (1);
 }
-
-
-
-

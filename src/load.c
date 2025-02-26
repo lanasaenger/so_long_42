@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:58:43 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 12:23:34 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:47:22 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,12 @@ void	free_gnl(int fd)
 {
 	char	*line;
 
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
+	{
 		free(line);
+		line = get_next_line(fd);
+	}
 }
 
 t_map	*allocate_map(int lines)
@@ -69,7 +73,7 @@ t_map	*allocate_map(int lines)
 		free(map);
 		return (NULL);
 	}
-	map->grid[lines] = NULL; // Garante que a última linha seja NULL
+	map->grid[lines] = NULL;
 	return (map);
 }
 
@@ -78,7 +82,7 @@ t_map	*load_map(const char *map_file, t_game *game)
 	int		fd;
 	t_map	*map;
 	int		lines;
-	
+
 	(void)game;
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
@@ -99,4 +103,3 @@ t_map	*load_map(const char *map_file, t_game *game)
 	map->width = ft_strlen(map->grid[0]) - 1;
 	return (map);
 }
-

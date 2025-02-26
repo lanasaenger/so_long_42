@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:56:28 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/24 18:37:50 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:46:34 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	set_player_position(t_game *game)
 		y++;
 	}
 }
-void	update_player_position(t_game *game, int new_x, int new_y, char next_tile)
+
+void	up_player(t_game *game, int new_x, int new_y, char next_tile)
 {
 	game->moves++;
 	print_move_count(game->moves);
@@ -64,8 +65,8 @@ void	update_player_position(t_game *game, int new_x, int new_y, char next_tile)
 
 void	move_player(t_game *game, char direction)
 {
-	int	new_x;
-	int	new_y;
+	int		new_x;
+	int		new_y;
 	char	next_tile;
 
 	new_x = game->player_x / TILE_SIZE;
@@ -84,10 +85,8 @@ void	move_player(t_game *game, char direction)
 	next_tile = game->map->grid[new_y][new_x];
 	if (next_tile == '1' || (next_tile == 'E' && game->map->collectibles > 0))
 		return ;
-	update_player_position(game, new_x, new_y, next_tile);
+	up_player(game, new_x, new_y, next_tile);
 }
-
-
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {

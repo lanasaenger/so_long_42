@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:57:31 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 17:32:27 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:33:27 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	load_texture(mlx_t *mlx, mlx_image_t **image, const char *path)
 		exit(EXIT_FAILURE);
 	}
 }
-
 
 void	load_textures(t_game *game)
 {

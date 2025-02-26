@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:25:04 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 12:35:45 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:40:48 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ void	cleanup(t_game *game)
 		cleanup_game(game);
 		if (game->map)
 		{
-	if (game->map)
-		free_map(game->map);
-			// free(game->map);
+			if (game->map)
+				free_map(game->map);
 		}
 		if (game->mlx)
 		{
@@ -47,19 +46,36 @@ void	cleanup(t_game *game)
 	}
 }
 
-void free_grid(char **grid, int height)
+void	free_grid(char **grid, int height)
 {
-    int i;
+	int	i;
 
-    if (!grid)
-        return;
-    i = 0;
-    while (i < height)
-    {
-        free(grid[i]);
-        i++;
-    }
-    free(grid);
+	if (!grid)
+		return ;
+	i = 0;
+	while (i < height)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
 }
 
+void	free_map(t_map *map)
+{
+	int	i;
 
+	if (!map)
+		return ;
+	if (map->grid)
+	{
+		i = 0;
+		while (i < map->height)
+		{
+			free(map->grid[i]);
+			i++;
+		}
+		free(map->grid);
+	}
+	free(map);
+}
