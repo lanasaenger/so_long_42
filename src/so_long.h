@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/24 17:46:52 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 12:51:22 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <unistd.h>
 # define TILE_SIZE 64
+
 
 typedef struct s_map
 {
@@ -60,7 +61,7 @@ int		count_lines(const char *map_file);
 int		fill_map(int fd, int lines, char **grid);
 t_map	*allocate_map(int lines);
 t_map	*load_map(const char *map_file, t_game *game);
-void	free_map(char **map, int height);
+void	free_map(t_map *map);
 void	print_move_count(int moves);
 void	cleanup_game(t_game *game);
 int		init_game(t_game *game, const char *map_path);
@@ -82,6 +83,7 @@ void	validate_win(t_game *game);
 int		count_collectibles(char **grid, int height, int width);
 void	finish_level(t_game *game);
 void	update_player_position(t_game *game, int new_x, int new_y, char next_tile);
-int is_map_rectangular(t_game *game);
-int is_valid_map_extension(const char *filename);
+int 	is_map_rectangular(t_game *game);
+int 	is_valid_map_extension(const char *filename);
+void 	free_grid(char **grid, int height);
 #endif

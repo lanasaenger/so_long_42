@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:25:04 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/19 17:54:11 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:35:45 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	cleanup(t_game *game)
 		cleanup_game(game);
 		if (game->map)
 		{
-			if (game->map->grid)
-				free_map(game->map->grid, game->map->height);
-			free(game->map);
+	if (game->map)
+		free_map(game->map);
+			// free(game->map);
 		}
 		if (game->mlx)
 		{
@@ -45,6 +45,21 @@ void	cleanup(t_game *game)
 		}
 		free(game);
 	}
+}
+
+void free_grid(char **grid, int height)
+{
+    int i;
+
+    if (!grid)
+        return;
+    i = 0;
+    while (i < height)
+    {
+        free(grid[i]);
+        i++;
+    }
+    free(grid);
 }
 
 

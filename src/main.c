@@ -6,26 +6,32 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/24 18:23:08 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 12:27:33 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	free_map(char **map, int height)
+void free_map(t_map *map)
 {
-	int	i;
+	int i;
 
-	i = 0;
 	if (!map)
 		return;
-	while (i < height)
+	if (map->grid)
 	{
-		free(map[i]);
-		i++;
+		i = 0;
+		while (i < map->height)
+		{
+			free(map->grid[i]);
+			i++;
+		}
+		free(map->grid);
 	}
 	free(map);
 }
+
+
 
 void	cleanup_game(t_game *game)
 {
@@ -47,13 +53,13 @@ int	init_game(t_game *game, const char *map_path)
 	if (!game->map)
 	{
 		write(2, "Erro: Falha ao carregar mapa.\n", 31);
-		free (game->map);
 		return (false);
 	}
 	set_player_position(game);
 	if (!check_map_rules(game) || !check_map_accessibility(game))
 	{
 		write(2, "Erro: Mapa inválido.\n", 22);
+		free_map(game->map);  // Libera a memória do mapa antes de sair
 		return (false);
 	}
 	game->mlx = mlx_init(game->map->width * TILE_SIZE, game->map->height
@@ -61,6 +67,7 @@ int	init_game(t_game *game, const char *map_path)
 	if (!game->mlx)
 	{
 		write(2, "Erro: Falha ao inicializar MLX.\n", 33);
+		free_map(game->map);  // Libera o mapa se a MLX falhar
 		return (false);
 	}
 	load_textures(game);
@@ -68,6 +75,7 @@ int	init_game(t_game *game, const char *map_path)
 			game->map->height, game->map->width);
 	return (true);
 }
+
 
 static int	check_args_and_init(t_game **game, int argc, char *map)
 {

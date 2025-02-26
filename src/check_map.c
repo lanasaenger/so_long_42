@@ -6,7 +6,7 @@
 /*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:19:35 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/24 18:55:45 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 12:11:25 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	validate_accessibility(t_game *game, char **map_copy)
 				&& map_copy[y][x] != 'F')
 			{
 				ft_putstr_fd("Erro: Nem todos os coletáveis ou a saída são acessíveis!\n", 2);
-				free_map(map_copy, game->map->height);
+				free_grid(map_copy, game->map->height);
 				return (0);
 			}
 		}
@@ -96,7 +96,7 @@ int	check_map_accessibility(t_game *game)
 	flood_fill(map_copy, y, x);
 	if (!validate_accessibility(game, map_copy))
 		return (0);
-	free_map(map_copy, game->map->height);
+	free_grid(map_copy, game->map->height);
 	return (1);
 }
 

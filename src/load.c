@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:58:43 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/20 18:35:35 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:23:34 by lavinia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,11 @@ t_map	*allocate_map(int lines)
 		return (NULL);
 	map->grid = malloc(sizeof(char *) * (lines + 1));
 	if (!map->grid)
-		return (free(map), NULL);
+	{
+		free(map);
+		return (NULL);
+	}
+	map->grid[lines] = NULL; // Garante que a última linha seja NULL
 	return (map);
 }
 
@@ -74,7 +78,7 @@ t_map	*load_map(const char *map_file, t_game *game)
 	int		fd;
 	t_map	*map;
 	int		lines;
-
+	
 	(void)game;
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
@@ -87,12 +91,12 @@ t_map	*load_map(const char *map_file, t_game *game)
 		return (close(fd), NULL);
 	if (!fill_map(fd, lines, map->grid))
 	{
-		while (lines--)
-			free(map->grid[lines]);
-		return (free(map->grid), free(map), close(fd), NULL);
+		free_map(map);
+		return (close(fd), NULL);
 	}
 	close(fd);
 	map->height = lines;
 	map->width = ft_strlen(map->grid[0]) - 1;
 	return (map);
 }
+
