@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:13:19 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 19:38:01 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/26 22:07:28 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,38 +26,45 @@ void	cleanup_game(t_game *game)
 		mlx_delete_image(game->mlx, game->textures.player);
 }
 
-int	init_game(t_game *game, const char *map_path)
+int	load_map_and_validate(t_game *game, const char *map_path)
 {
 	game->map = load_map(map_path, game);
 	if (!game->map)
 	{
-		write(2, "Erro: Falha ao carregar mapa.\n", 31);
+		write(2, "error opening map file.\n", 23);
 		return (false);
 	}
 	if (!is_map_closed(game->map))
 	{
 		free_map(game->map);
 		free(game);
-		return (0);
+		return (false);
 	}
 	set_player_position(game);
 	if (!check_map_rules(game) || !check_map_accessibility(game))
 	{
-		write(2, "Erro: Mapa inválido.\n", 22);
+		write(2, "Error: invalid map\n", 18);
 		free_map(game->map);
 		return (false);
 	}
+	game->map->collectibles = count_collectibles(game->map->grid,
+			game->map->height, game->map->width);
+	return (true);
+}
+
+int	init_game(t_game *game, const char *map_path)
+{
+	if (!load_map_and_validate(game, map_path))
+		return (false);
 	game->mlx = mlx_init(game->map->width * TILE_SIZE, game->map->height
 			* TILE_SIZE, "totoro", true);
 	if (!game->mlx)
 	{
-		write(2, "Erro: Falha ao inicializar MLX.\n", 33);
+		write(2, "Error: speaks when initializing MLX\n", 35);
 		free_map(game->map);
 		return (false);
 	}
 	load_textures(game);
-	game->map->collectibles = count_collectibles(game->map->grid,
-			game->map->height, game->map->width);
 	return (true);
 }
 
@@ -65,12 +72,12 @@ static int	check_args_and_init(t_game **game, int argc, char *map)
 {
 	if (argc < 2)
 	{
-		write(2, "Erro: Nenhum arquivo de mapa especificado.\n", 44);
+		write(2, "Error: No map file specified.\n", 29);
 		return (EXIT_FAILURE);
 	}
 	if (!is_valid_map_extension(map))
 	{
-		ft_putstr_fd("Erro: O arquivo não tem a extensão .ber\n", 2);
+		ft_putstr_fd("Error: The file does not have the .ber extension\n", 2);
 		return (EXIT_FAILURE);
 	}
 	*game = malloc(sizeof(t_game));
@@ -82,7 +89,7 @@ static int	check_args_and_init(t_game **game, int argc, char *map)
 	set_game_null(*game);
 	if (!init_game(*game, map))
 	{
-		write(2, "Erro: Falha na inicialização do jogo.\n", 38);
+		write(2, "Error: Game initialization failed.\n", 33);
 		free(*game);
 		return (EXIT_FAILURE);
 	}

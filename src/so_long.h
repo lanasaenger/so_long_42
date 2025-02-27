@@ -6,7 +6,7 @@
 /*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:09:48 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 19:39:19 by lamachad         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:56:23 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ int		is_map_rectangular(t_game *game);
 int		is_valid_map_extension(const char *filename);
 void	free_grid(char **grid, int height);
 int		is_map_closed(t_map *map);
+int		load_map_and_validate(t_game *game, const char *map_path);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:58:43 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 13:47:22 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:29:24 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_map	*load_map(const char *map_file, t_game *game)
 	(void)game;
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
-		return (perror("Erro ao abrir o arquivo do mapa"), NULL);
+		return (perror("error opening map file"), NULL);
 	lines = count_lines(map_file);
 	if (lines <= 0)
 		return (close(fd), NULL);

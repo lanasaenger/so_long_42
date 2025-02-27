@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:19:35 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 14:01:47 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 21:57:48 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ int	check_map_characters(t_game *game, int *p, int *c, int *e)
 				(*c)++;
 			else if (game->map->grid[y][x] == 'E')
 				(*e)++;
-			else if (game->map->grid[y][x] != '0' && game->map->grid[y][x] != '1')
-				return (ft_putstr_fd("Erro: Mapa contém caracteres inválidos!\n", 2), 0);
+			else if (game->map->grid[y][x] != '0'
+					&& game->map->grid[y][x] != '1')
+				return (ft_putstr_fd("Error:Invalid characters!\n", 2), 0);
 		}
 		if (x != game->map->width)
-			return (ft_putstr_fd("Erro: O mapa não é retangular!\n", 2), 0);
+			return (ft_putstr_fd("Error: The map is not rectangular!\n", 2), 0);
 	}
 	return (1);
 }
@@ -53,7 +54,7 @@ int	check_map_rules(t_game *game)
 		return (0);
 	if (p != 1 || c < 1 || e != 1)
 	{
-		ft_putstr_fd("Erro: O mapa precisa de 1 jogador, pelo menos 1 coletável e 1 saída!\n", 2);
+		ft_putstr_fd("Error: Map with incomplete items\n", 2);
 		return (0);
 	}
 	return (1);
@@ -73,7 +74,7 @@ int	validate_accessibility(t_game *game, char **map_copy)
 			if ((game->map->grid[y][x] == 'C' || game->map->grid[y][x] == 'E')
 				&& map_copy[y][x] != 'F')
 			{
-				ft_putstr_fd("Erro: Nem todos os coletáveis ou a saída são acessíveis!\n", 2);
+				ft_putstr_fd("Eerror: exit or collectibles inaccessible!\n", 2);
 				free_grid(map_copy, game->map->height);
 				return (0);
 			}
@@ -90,7 +91,7 @@ int	check_map_accessibility(t_game *game)
 
 	map_copy = copy_map(game->map->grid, game->map->height, game->map->width);
 	if (!map_copy)
-		return (ft_putstr_fd("Erro: Falha ao copiar o mapa!\n", 2), 0);
+		return (ft_putstr_fd("error: failed to copy map!\n", 2), 0);
 	y = game->player_y / TILE_SIZE;
 	x = game->player_x / TILE_SIZE;
 	flood_fill(map_copy, y, x);
@@ -120,7 +121,7 @@ int	is_map_rectangular(t_game *game)
 			line[ft_strlen(line) - 1] = '\0';
 		if (ft_strlen(line) != line_length)
 		{
-			ft_putstr_fd("Erro: O mapa não é retangular!\n", 2);
+			ft_putstr_fd("error: the map is not rectangular!\n", 2);
 			return (0);
 		}
 		y++;

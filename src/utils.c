@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:25:04 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 13:40:48 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:48:52 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ void	free_map(t_map *map)
 		free(map->grid);
 	}
 	free(map);
+	map = NULL;
 }

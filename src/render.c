@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lavinia <lavinia@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lamachad <lamachad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:57:31 by lamachad          #+#    #+#             */
-/*   Updated: 2025/02/26 13:33:27 by lavinia          ###   ########.fr       */
+/*   Updated: 2025/02/26 21:51:24 by lamachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	load_texture(mlx_t *mlx, mlx_image_t **image, const char *path)
 	texture = mlx_load_png(path);
 	if (!texture)
 	{
-		write(2, "Erro ao carregar textura: ", 26);
+		write(2, "Error loading texture: ", 26);
 		write(2, path, ft_strlen(path));
 		write(2, "\n", 1);
 		exit(EXIT_FAILURE);
@@ -36,7 +36,7 @@ void	load_texture(mlx_t *mlx, mlx_image_t **image, const char *path)
 	mlx_delete_texture(texture);
 	if (!(*image))
 	{
-		write(2, "Erro ao converter textura: ", 27);
+		write(2, "Error converting texture: ", 27);
 		write(2, path, ft_strlen(path));
 		write(2, "\n", 1);
 		exit(EXIT_FAILURE);
@@ -53,7 +53,7 @@ void	load_textures(t_game *game)
 	load_texture(game->mlx, &game->textures.player, "assets/character2.png");
 	if (!(game->textures.player))
 	{
-		write(2, "Erro ao carregar a textura do jogador.\n", 39);
+		write(2, "Error loading player texture.\n", 29);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -100,7 +100,7 @@ void	render_map(t_game *game)
 	if (mlx_image_to_window(game->mlx, game->textures.player, game->player_x,
 			game->player_y) < 0)
 	{
-		write(2, "Erro ao adicionar jogador à janela.\n", 37);
+		write(2, "Error adding player to window.\n", 30);
 		exit(EXIT_FAILURE);
 	}
 }
